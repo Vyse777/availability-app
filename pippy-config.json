@@ -1,0 +1,14 @@
+{
+  "DEBUG": {
+    "active": false
+  },
+  "CLIENT": {
+    "name": "pippy-pie"
+  },
+  "ASSOCIATE": {
+    "name": "whippy-pie"
+  },
+  "BROKER": {
+    "mqtt_server": "REPLACE_WITH_MQTT_SERVER_NAME_OR_URI"
+  }
+}
