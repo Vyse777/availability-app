@@ -190,7 +190,7 @@ while APP_DEBUG_ACTIVE:
 # Connect to Wi-Fi
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.connect("REPLACE_WITH_WIFI_NAME", "REPLACE_WITH_WIFI_PASSWORD")
+wlan.connect(config['WiFi']['name'], config['WiFi']['password'])
 time.sleep(5)  # Not really needed
 if wlan.isconnected():
     print("Wifi connected successfully!")

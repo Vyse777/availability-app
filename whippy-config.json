@@ -2,6 +2,10 @@
   "DEBUG": {
     "active": false
   },
+  "WiFi": {
+    "name": "REPLACE_WITH_WIFI_NAME",
+    "password": "REPLACE_WITH_WIFI_PASSWORD"
+  },
   "CLIENT": {
     "name": "whippy-pie"
   },
