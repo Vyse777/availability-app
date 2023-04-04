@@ -11,6 +11,8 @@ A MicroPython application intended for deployment to a Raspberry Pi Pico W. Util
   * Can be a docker instance, or standalone deployment
 
 # Getting Started
+
+---
 ## Development
 Development requires the setup of a Pico W. Follow the standard steps for flashing a Pico W with the latest/most stable version of MicroPython. At the moment, there is no requirement on a particular version.
 
@@ -46,8 +48,10 @@ Flash all of this to each one of the Pico W's; One for Client (say, Pippy) and o
 
 Boot them and enjoy!
 
-## How To Use / Operation Manual
-### Startup:
+# How To Use / Operation Manual
+
+---
+## Startup:
 When the Pi boots the keypad will turn all white to indicate startup.
 All the following occurs during boot-up/startup:
 1) The Pico W will attempt to connect to Wi-Fi
@@ -59,7 +63,7 @@ All the following occurs during boot-up/startup:
 
 If an error occurs during startup the keypad will display a red sad face indicating a problem occurred.
 
-### User Operation Mode:
+## User Operation Mode:
 The keypad will display 3 lights at the top in the first row, and two lights (first and last) on the bottom row.
    * The Top row lights are to set 'this' Pi's status. 
      * Green - "I am available"
@@ -68,7 +72,7 @@ The keypad will display 3 lights at the top in the first row, and two lights (fi
    * The first light in th bottom row indicates 'this' Pi's (the Client) current status
    * The last light in the bottom row indicates the 'other' Pi's (the Associate) current status
 
-### Ping for status update (v1.1.0):
+## Ping for status update (v1.1.0):
 
 Version 1.0.0 grants the user the ability to 'ping' the other keypad's status. This can be useful if you intend to scream, call, yell profanities, etc. but would like to 'confirm' that the other person is indeed free/not on a meeting beforehand. 
 
@@ -76,5 +80,9 @@ To do this:
 1) Press the Associate Pi status indicator (bottom right button); The light will start to blink to indicate you requested an update
    * On the Associate's Pi ***their*** current status indicator light will blink to indicate that someone else asked for a status update. This will continue to blink until the user updates the status (by selecting a new status OR selecting whatever their current status is)
 2) Once the other Pi/User selects a status, the blinking will stop to indicate an update occurred. Now the status indicator of the Associate could be either the same color it was before (meaning their status has not changed), or a different color (meaning they actually are in a new status and simply forgot to update it - good thing you pinged!)
+
+Since version 1.2.0 you can now cancel a 'ping' for status update by pressing the flashing Associate's status light once more.
+
+This is useful if you know the person is available, or confirmed it by other means (say they are away from their desk) and you know they won't be updating the status any time soon.
 
 Enjoy!

@@ -1,0 +1,40 @@
+<div style="height: 100px;" class="header mat-headline-2">Availability</div>
+<div class="card-holder">
+  <mat-card [ngStyle]="{'background-color': colorMap[pippyStatus] ? colorMap[pippyStatus] : 'white'}">
+    <mat-card-header class="mat-headline-4" style="justify-content: center;">Pippy Pie</mat-card-header>
+    <mat-card-content>
+      <div class="card-content-container">
+        <mat-form-field class="example-full-width" style="width: 100%;">
+          <mat-label>Label/Nickname</mat-label>
+          <input matInput placeholder="Ex. User1, User2, Upstairs, Downstairs" [formControl]="pippyFormControl">
+        </mat-form-field>
+
+        <div *ngIf="masterMode">
+          <button mat-raised-button style="background-color: green; color: white;" (click)="updatePippyPie('AVAILABLE')">Available</button>
+          <button mat-raised-button style="background-color: yellow; color: black;" (click)="updatePippyPie('MODERATE')">Moderate</button>
+          <button mat-raised-button style="background-color: red; color: white;" (click)="updatePippyPie('UNAVAILABLE')">Unavailable</button>
+        </div>
+        <!-- <button mat-raised-button style="background-color: white;">Ping</button> -->
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card [ngStyle]="{'background-color': colorMap[whippyStatus] ? colorMap[whippyStatus] : 'white'}">
+    <mat-card-header class="mat-headline-4" style="justify-content: center;">Whippy Pie</mat-card-header>
+    <mat-card-content>
+      <div class="card-content-container">
+        <mat-form-field class="example-full-width" style="width: 100%;">
+          <mat-label>Label/Nickname</mat-label>
+          <input matInput placeholder="Ex. User1, User2, Upstairs, Downstairs" [formControl]="whippyFormControl">
+        </mat-form-field>
+
+        <div *ngIf="masterMode">
+          <button mat-raised-button style="background-color: green; color: white;" (click)="updateWhippyPie('AVAILABLE')">Available</button>
+          <button mat-raised-button style="background-color: yellow; color: black;" (click)="updateWhippyPie('MODERATE')">Moderate</button>
+          <button mat-raised-button style="background-color: red; color: white;" (click)="updateWhippyPie('UNAVAILABLE')">Unavailable</button>
+        </div>
+        <!-- <button mat-raised-button style="background-color: white;">Ping</button> -->
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
