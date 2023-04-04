@@ -34,8 +34,8 @@ print(mqtt_associate_status_sub_path)
 
 client_status_mqtt_client = None
 
-status = "UNKNOWN"
-associate_status = "UNKNOWN"
+status = "INIT"
+associate_status = "INIT"
 asked_for_associate_update = False
 associate_asked_for_update = False
 
@@ -62,20 +62,25 @@ def mqtt_this_client_availability_handler(topic, message):
 
 
 def mqtt_associate_message_handler(topic, message):
+    topic = str(topic, 'utf-8')
+    message = str(message, 'utf-8')
     global associate_status, associate_asked_for_update
-    print("Received status message from other Pi: " + str(topic, 'utf-8') + ". Message: " + str(message, 'utf-8'))
+    print("Received status message from other Pi: " + topic + ". Message: " + message)
     # /meeting-status contains info about the associates status
-    if "status" in str(topic, 'utf-8'):
+    if "status" in topic:
         # First time running - ignore it, the update LED method will be called at the end of startup configuration
-        if associate_status == "UNKNOWN":
-            associate_status = str(message, 'utf-8')  # Just update the status
+        if associate_status == "INIT":
+            associate_status = message # Just update the status
             return
         else:
-            associate_status = str(message, 'utf-8')
+            associate_status = message
             update_associate_status_led()
     # /status-check-result is the sub-topic that we use to request a status update or 'ping' for status
-    elif "request-update" in str(topic, 'utf-8'):
-        if not associate_asked_for_update:
+    elif "request-update" in topic:
+        # User cancellation received - no longer need an update/flash
+        if "canceled" in message and associate_asked_for_update:
+            associate_asked_for_update = False
+        elif not associate_asked_for_update:
             associate_asked_for_update = True
 
 
@@ -142,6 +147,15 @@ def request_associate_status_update():
         asked_for_associate_update = True
 
 
+def cancel_associate_status_update():
+    global asked_for_associate_update
+    print("Sending update status cancellation message to associate")
+    client_status_mqtt_client.publish(mqtt_request_associate_update_path, 'canceled')
+    # flash_associate_status_light()
+    if asked_for_associate_update is True:
+        asked_for_associate_update = False
+
+
 def flash_status_light(timer):
     global associate_asked_for_update, client_status_light_on
     if associate_asked_for_update:
@@ -188,14 +202,21 @@ while APP_DEBUG_ACTIVE:
         time.sleep_ms(200)
 
 # Connect to Wi-Fi
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect(config['WiFi']['name'], config['WiFi']['password'])
-time.sleep(5)  # Not really needed
-if wlan.isconnected():
-    print("Wifi connected successfully!")
-else:
-    print("An issue occurred while trying to connect to WiFf and so it is not currently connected.")
+try:
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+    wlan.connect(config['WiFi']['name'], config['WiFi']['password'])
+    time.sleep(5)  # Not really needed
+    if wlan.isconnected():
+        print("Wifi connected successfully!")
+    else:
+        print("An issue occurred while trying to connect to WiFf and so it is not currently connected.")
+        raise Exception("Error connecting to WiFi is_connected returned false")
+except Exception as e:
+    print(f"Failed to connect to Wifi for some reason: {e=}, {type(e)=}")
+    make_sad_face()
+    time.sleep(120)
+    machine.reset()
 
 # Set 'status' key to current status
 # keypad.get_key(0, 3).color = GREEN
@@ -272,7 +293,10 @@ while True:
                 update_status_led()
                 time.sleep_ms(200)
             elif key.x == 3 and key.y == 3:
-                request_associate_status_update()
+                if asked_for_associate_update:
+                    cancel_associate_status_update()
+                else:
+                    request_associate_status_update()
                 time.sleep_ms(200)
 
 # endregion
