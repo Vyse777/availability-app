@@ -19,7 +19,16 @@ export const connection: IMqttServiceOptions = {
   clean: true, // Retain session
   connectTimeout: 4000,
   reconnectPeriod: 4000,
-  clientId: 'availability-app-web',
+  clientId: 'availability-app-web-' + makeRandomString(),
+}
+
+function makeRandomString(ofLength: number = 13) {
+  let possibleCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-";
+  let text = "";
+  for (let i = 0; i < ofLength; i++) {
+    text += possibleCharacters.charAt(Math.floor(Math.random() * possibleCharacters.length));
+  }
+  return text;
 }
 
 @NgModule({

@@ -1,0 +1,5 @@
+.angular
+.vscode
+availability-app-web.tar
+node_modules
+dist

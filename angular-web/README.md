@@ -32,13 +32,21 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Building & Deploying The App
 First go update the MQTT hostname/URL in `app.module.ts`
 
-Then, build the app with the Angular command `ng build --prod`.
+Then, build the app with the Angular command `ng build --configuration=production`.
 The output dist can be used to host/run the application in any way you see fit.
 
 Some recommendations include:
 1) Dockerize it and run it in a Docker container wherever you want
 2) Serve it with Dotnet, Java, Nginx, NodeJS, or any other million options for web servers that exist today
 3) Host it on a cloud service such as AWS or Azure (Note: This app might not be fit for such a task as it would be internet exposed. The app was only ever really meant to operate intra-net)
+
+## Building for Docker
+
+Run the following command in the root of this project to build the Angular app into a Nginx container:
+
+`docker build -t availability-app-web:latest . && docker save -o availability-app-web.tar availability-app-web:latest`
+
+This one liner will build the Angular app based on the Docker file in the project (build dist, then move them into an nginx image with basic nginx config). After that it will save the image locally so you can `docker load` it into any Docker instance you see fit.
 
 ## Use
 Upon page load you'll see the two indicators for each Pi.
