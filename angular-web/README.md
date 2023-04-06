@@ -2,12 +2,9 @@
 This Angular application will show the status of both the Pippy Pie and Whippy Pie.
 You can also set labels for each Pi to easily differentiate them. This value gets stored in browser Local Storage, so it can be preserved when reloading the page.
 
----
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
 # Development:
-
----
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
@@ -27,8 +24,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 # Deployment & Use:
-
----
 ## Building & Deploying The App
 First go update the MQTT hostname/URL in `app.module.ts`
 

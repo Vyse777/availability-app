@@ -1,4 +1,4 @@
-# Availability App
+# Availability App Python
 A MicroPython application intended for deployment to a Raspberry Pi Pico W. Utilizing an MQTT broker, allows multiple (Client & Associate) Pico Keypads to indicate a users "in a meeting" status (Red=in a meeting; Yellow=busy; Green=available)
 
 ### Required Hardware:
@@ -11,8 +11,6 @@ A MicroPython application intended for deployment to a Raspberry Pi Pico W. Util
   * Can be a docker instance, or standalone deployment
 
 # Getting Started
-
----
 ## Development
 Development requires the setup of a Pico W. Follow the standard steps for flashing a Pico W with the latest/most stable version of MicroPython. At the moment, there is no requirement on a particular version.
 
@@ -49,8 +47,6 @@ Flash all of this to each one of the Pico W's; One for Client (say, Pippy) and o
 Boot them and enjoy!
 
 # How To Use / Operation Manual
-
----
 ## Startup:
 When the Pi boots the keypad will turn all white to indicate startup.
 All the following occurs during boot-up/startup:
